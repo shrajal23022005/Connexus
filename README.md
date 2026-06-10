@@ -214,6 +214,7 @@ Add screenshots here after deployment.
 
 - GitHub: https://github.com/shrajal23022005
 
+- Live Demo: https://connexus-c9k6.onrender.com
 ---
 
 ## 📜 License
