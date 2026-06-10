@@ -10,6 +10,11 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const jwt = require("jsonwebtoken");
 const app = express();
+const uploadDir = path.join(__dirname, "public/uploads");
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 
 app.use(
@@ -997,7 +1002,7 @@ app.get("/search-details", verifyToken, function (req, resp) {
 // SAVE INFLUENCER PROFILE
 // ======================
 
-app.post("/influencer-save", verifyToken, function (req, resp) {
+app.post("/influencer-save", function (req, resp) {
 
     let fileName = "nopic.jpg";
 
@@ -1093,7 +1098,7 @@ app.post("/influencer-save", verifyToken, function (req, resp) {
 // UPDATE INFLUENCER PROFILE
 // ======================
 
-app.post("/influencer-update", verifyToken, function (req, resp) {
+app.post("/influencer-update", function (req, resp) {
 
     let fileName =
         req.body.hdn || "nopic.jpg";
