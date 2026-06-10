@@ -92,7 +92,7 @@ app.use(
 // SERVER
 // ======================
 
-const PORT = process.env.PORT || 1500;
+const PORT = process.env.DB_PORT || 1500;
 
 app.listen(PORT, function () {
     console.log(`✅ Server Started on Port ${PORT}`);
@@ -103,10 +103,15 @@ app.listen(PORT, function () {
 // ======================
 const dbConfig = {
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     dateStrings: true,
+
+    ssl: {
+        rejectUnauthorized: true
+    }
 };
 
 const mysql = mysql2.createConnection(dbConfig);
@@ -120,7 +125,6 @@ mysql.connect(function (err) {
         console.log("❌ DB Error:", err.message);
     }
 });
-
 // ======================
 // AUTH MIDDLEWARE
 // ======================
