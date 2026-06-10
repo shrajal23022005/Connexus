@@ -92,7 +92,7 @@ app.use(
 // SERVER
 // ======================
 
-const PORT = process.env.DB_PORT || 1500;
+const PORT = process.env.PORT || 1500;
 
 app.listen(PORT, function () {
     console.log(`✅ Server Started on Port ${PORT}`);
