@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>All Influencers</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+
+        var module = angular.module("MyModule", []);
+
+        var controller = module.controller("MyController",
+
+            function ($scope, $http) {
+
+                $scope.jsonAryAll = [];
+
+                $scope.selectedInfluencer = {};
+
+                $scope.fillAllInfluencers = function () {
+
+                    let url = "/fetch-all-infl";
+
+                    $http.get(url, {
+                        headers: {
+                            Authorization: "Bearer " + localStorage.getItem("token")
+                        }
+                    }).then(
+                        function (response) {
+
+                            $scope.jsonAryAll = response.data;
+
+                        },
+
+                        function (error) {
+
+                            alert("Error fetching data");
+
+                        }
+
+                    );
+
+                };
+
+                $scope.showDetails = function (influencer) {
+
+                    $scope.selectedInfluencer = influencer;
+
+                    var myModal = new bootstrap.Modal(
+                        document.getElementById('detailsModal')
+                    );
+
+                    myModal.show();
+
+                };
+
+            });
+
+    </script>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            background:
+            linear-gradient(
+                135deg,
+                #f4c8bb 0%,
+                #efb6a8 50%,
+                #d7ddc4 50%,
+                #c7cfb1 100%
+            );
+
+            padding:50px 20px;
+
+            overflow-x:hidden;
+        }
+
+        .main-box{
+
+            background:rgba(255,255,255,0.18);
+
+            backdrop-filter:blur(12px);
+
+            border-radius:40px;
+
+            padding:40px;
+
+            box-shadow:0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .page-title{
+
+            text-align:center;
+
+            font-size:3rem;
+
+            font-weight:700;
+
+            color:#6d5447;
+
+            margin-bottom:40px;
+        }
+
+        .card-container{
+
+            display:flex;
+
+            flex-wrap:wrap;
+
+            justify-content:center;
+
+            gap:30px;
+        }
+
+        .profile-card{
+
+            width:250px;
+
+            background:rgba(255,255,255,0.25);
+
+            border-radius:30px;
+
+            overflow:hidden;
+
+            box-shadow:0 10px 25px rgba(0,0,0,0.12);
+
+            transition:0.3s;
+
+            cursor:pointer;
+        }
+
+        .profile-card:hover{
+
+            transform:translateY(-8px);
+        }
+
+        .profile-card img{
+
+            width:100%;
+
+            height:260px;
+
+            object-fit:cover;
+        }
+
+        .card-body{
+
+            padding:20px;
+
+            text-align:center;
+        }
+
+        .card-title{
+
+            color:#6d5447;
+
+            font-size:1.2rem;
+
+            font-weight:700;
+
+            margin-bottom:8px;
+        }
+
+        .view-btn{
+
+            border:none;
+
+            padding:10px 24px;
+
+            border-radius:30px;
+
+            background:#f7f1eb;
+
+            color:#6d5447;
+
+            font-weight:600;
+
+            transition:0.3s;
+
+            box-shadow:0 8px 18px rgba(0,0,0,0.12);
+        }
+
+        .view-btn:hover{
+
+            transform:translateY(-3px);
+        }
+
+        .modal-content{
+
+            border:none;
+
+            border-radius:35px;
+
+            overflow:hidden;
+
+            background:#fef8f4;
+        }
+
+        .modal-header{
+
+            background:#d7ddc4;
+
+            border:none;
+        }
+
+        .modal-title{
+
+            color:#6d5447;
+
+            font-weight:700;
+        }
+
+        .modal-body{
+
+            padding:30px;
+        }
+
+        .details-img{
+
+            width:100%;
+
+            border-radius:25px;
+
+            object-fit:cover;
+
+            box-shadow:0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .details-text p{
+
+            margin-bottom:10px;
+
+            color:#5f4b42;
+        }
+
+        .details-text strong{
+
+            color:#6d5447;
+        }
+
+        .details-text a{
+
+            text-decoration:none;
+
+            color:#b76e5d;
+
+            font-weight:600;
+        }
+
+        .modal-footer{
+
+            border:none;
+
+            justify-content:center;
+
+            padding-bottom:25px;
+        }
+
+        .close-btn{
+
+            border:none;
+
+            padding:12px 30px;
+
+            border-radius:30px;
+
+            background:#efb6a8;
+
+            color:white;
+
+            font-weight:600;
+
+            transition:0.3s;
+        }
+
+        .close-btn:hover{
+
+            background:#e49c8d;
+        }
+
+        @media(max-width:992px){
+
+            .main-box{
+
+                padding:20px;
+            }
+
+            .page-title{
+
+                font-size:2rem;
+            }
+
+            .profile-card{
+
+                width:100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body
+
+    ng-app="MyModule"
+
+    ng-controller="MyController"
+
+    ng-init="fillAllInfluencers()">
+
+    <div class="container">
+
+        <div class="main-box">
+
+            <h1 class="page-title">
+                All Influencers
+            </h1>
+
+            <div class="card-container">
+
+                <div
+
+                    class="profile-card"
+
+                    ng-repeat="obj in jsonAryAll">
+
+                    <img
+                        ng-src="uploads/{{obj.picpath}}"
+                        alt="Influencer">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            {{obj.iname}}
+                        </h5>
+
+                        <button
+
+                            class="view-btn"
+
+                            ng-click="showDetails(obj)">
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+
+    <div
+
+        class="modal fade"
+
+        id="detailsModal"
+
+        tabindex="-1">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Influencer Details
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row align-items-center">
+
+                        <div class="col-md-4 mb-4 mb-md-0">
+
+                            <img
+
+                                ng-src="uploads/{{selectedInfluencer.picpath}}"
+
+                                class="details-img">
+
+                        </div>
+
+                        <div class="col-md-8 details-text">
+
+                            <p>
+                                <strong>Name:</strong>
+                                {{selectedInfluencer.iname}}
+                            </p>
+
+                            <p>
+                                <strong>Email:</strong>
+                                {{selectedInfluencer.email}}
+                            </p>
+
+                            <p>
+                                <strong>Gender:</strong>
+                                {{selectedInfluencer.gender}}
+                            </p>
+
+                            <p>
+                                <strong>DOB:</strong>
+                                {{selectedInfluencer.dob}}
+                            </p>
+
+                            <p>
+                                <strong>Address:</strong>
+                                {{selectedInfluencer.address}}
+                            </p>
+
+                            <p>
+                                <strong>City:</strong>
+                                {{selectedInfluencer.city}}
+                            </p>
+
+                            <p>
+                                <strong>Contact:</strong>
+                                {{selectedInfluencer.contact}}
+                            </p>
+
+                            <p>
+                                <strong>Fields:</strong>
+                                {{selectedInfluencer.fields}}
+                            </p>
+
+                            <p>
+                                <strong>Instagram:</strong>
+
+                                <a
+                                    href="https://www.instagram.com/{{selectedInfluencer.insta}}"
+                                    target="_blank">
+
+                                    {{selectedInfluencer.insta}}
+
+                                </a>
+                            </p>
+
+                            <p>
+                                <strong>Facebook:</strong>
+
+                                <a
+                                    href="https://www.facebook.com/{{selectedInfluencer.fb}}"
+                                    target="_blank">
+
+                                    {{selectedInfluencer.fb}}
+
+                                </a>
+                            </p>
+
+                            <p>
+                                <strong>YouTube:</strong>
+
+                                <a
+                                    href="https://www.youtube.com/{{selectedInfluencer.youtube}}"
+                                    target="_blank">
+
+                                    {{selectedInfluencer.youtube}}
+
+                                </a>
+                            </p>
+
+                            <p>
+                                <strong>Other Details:</strong>
+                                {{selectedInfluencer.otheri}}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+
+                        type="button"
+
+                        class="close-btn"
+
+                        data-bs-dismiss="modal">
+
+                        Close
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

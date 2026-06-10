@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Connexus</title>
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --paper-red: #d89a8a;
+            --paper-green: #b7c2a2;
+            --paper-blue: #c6d0e7;
+            --paper-peach: #dea08c;
+            --paper-white: #f7f3ee;
+            --dark-text: #4c4c4c;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-x: hidden;
+            color: white;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--paper-red) 0%,
+                    var(--paper-red) 50%,
+                    var(--paper-green) 50%,
+                    var(--paper-green) 100%
+                );
+
+            position: relative;
+        }
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+
+            background-size: 28px 28px;
+
+            opacity: 0.5;
+
+            pointer-events: none;
+
+            z-index: -1;
+        }
+
+        /* NAVBAR */
+
+        .custom-nav {
+
+            background: rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(12px);
+
+            position: fixed;
+
+            width: 100%;
+
+            z-index: 1000;
+
+            border-bottom: 3px dashed rgba(255, 255, 255, 0.3);
+
+            padding: 12px 0;
+        }
+
+        .logo {
+
+            font-size: 2.2rem;
+
+            font-weight: 800;
+
+            color: var(--paper-white) !important;
+
+            letter-spacing: 1px;
+        }
+
+        .nav-btn {
+
+            border: none;
+
+            background: transparent;
+
+            color: white;
+
+            margin-left: 20px;
+
+            transition: 0.3s;
+
+            font-size: 1rem;
+
+            font-weight: 600;
+        }
+
+        .nav-btn:hover {
+
+            transform: translateY(-3px);
+
+            opacity: 0.8;
+        }
+
+        .nav-btn:focus {
+
+            outline: 2px solid white;
+
+            outline-offset: 5px;
+        }
+
+        /* HERO SECTION */
+
+        .hero-section {
+
+            display: flex;
+
+            min-height: 100vh;
+
+            position: relative;
+        }
+
+        .hero-left,
+        .hero-right {
+
+            width: 50%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            position: relative;
+
+            padding: 60px;
+
+            overflow: hidden;
+        }
+
+        .hero-left {
+            background: var(--paper-red);
+        }
+
+        .hero-right {
+            background: var(--paper-green);
+        }
+
+        .center-line {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 0;
+
+            width: 12px;
+
+            height: 100%;
+
+            background: var(--paper-white);
+
+            transform: translateX(-50%);
+
+            z-index: 50;
+        }
+
+        .hero-content {
+
+            max-width: 540px;
+
+            text-align: center;
+
+            z-index: 5;
+        }
+
+        .hero-content h1 {
+
+            font-size: 4.2rem;
+
+            font-weight: 800;
+
+            line-height: 1.15;
+
+            margin-bottom: 25px;
+
+            color: var(--paper-white);
+
+            text-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-content p {
+
+            line-height: 1.8;
+
+            margin-bottom: 35px;
+
+            font-size: 1.1rem;
+
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .hero-btn {
+
+            border: none;
+
+            padding: 16px 40px;
+
+            border-radius: 50px;
+
+            background: var(--paper-white);
+
+            color: #7d5c52;
+
+            font-weight: 700;
+
+            transition: 0.3s;
+
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px) scale(1.03);
+        }
+
+        /* FLOATING CIRCLES */
+
+        .floating-circle {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.12);
+
+            animation: float 7s ease-in-out infinite;
+
+            filter: blur(2px);
+        }
+
+        .c1 {
+
+            width: 250px;
+            height: 250px;
+
+            top: 5%;
+            left: 8%;
+        }
+
+        .c2 {
+
+            width: 140px;
+            height: 140px;
+
+            bottom: 12%;
+            right: 10%;
+        }
+
+        .c3 {
+
+            width: 220px;
+            height: 220px;
+
+            top: 10%;
+            right: 10%;
+        }
+
+        .c4 {
+
+            width: 120px;
+            height: 120px;
+
+            bottom: 15%;
+            left: 10%;
+        }
+
+        @keyframes float {
+
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* SERVICES */
+
+        .services-section {
+
+            padding: 120px 8%;
+
+            background: var(--paper-blue);
+        }
+
+        .section-title {
+
+            text-align: center;
+
+            margin-bottom: 70px;
+
+            font-size: 3.2rem;
+
+            font-weight: 800;
+
+            color: white;
+        }
+
+        .service-card {
+
+            background: rgba(255, 255, 255, 0.15);
+
+            padding: 40px 25px;
+
+            border-radius: 28px;
+
+            backdrop-filter: blur(10px);
+
+            transition: 0.4s;
+
+            height: 100%;
+
+            border: 2px dashed rgba(255, 255, 255, 0.25);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .emoji {
+            font-size: 3rem;
+        }
+
+        .service-card h3 {
+
+            margin-top: 20px;
+
+            margin-bottom: 15px;
+
+            color: white;
+        }
+
+        /* AUTH SECTION */
+
+        .auth-section {
+
+            padding: 120px 8%;
+
+            background: var(--paper-white);
+        }
+
+        .auth-container {
+
+            position: relative;
+
+            width: 100%;
+
+            max-width: 950px;
+
+            min-height: 650px;
+
+            margin: auto;
+
+            background: white;
+
+            border-radius: 35px;
+
+            overflow: hidden;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-container {
+
+            position: absolute;
+
+            top: 0;
+
+            width: 50%;
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 50px;
+
+            transition: all 0.6s ease-in-out;
+        }
+
+        .form-container form {
+
+            width: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+        }
+
+        .form-container h1 {
+
+            font-size: 3rem;
+
+            font-weight: 700;
+
+            color: var(--dark-text);
+
+            margin-bottom: 25px;
+        }
+
+        .sign-in {
+
+            left: 0;
+
+            z-index: 2;
+        }
+
+        .sign-up {
+
+            left: 0;
+
+            opacity: 0;
+
+            z-index: 1;
+
+            visibility: hidden;
+        }
+
+        .auth-container.active .sign-in {
+
+            transform: translateX(100%);
+
+            opacity: 0;
+
+            visibility: hidden;
+        }
+
+        .auth-container.active .sign-up {
+
+            transform: translateX(100%);
+
+            opacity: 1;
+
+            z-index: 5;
+
+            visibility: visible;
+        }
+
+        /* INPUTS */
+
+        .input-box {
+
+            position: relative;
+
+            width: 100%;
+
+            margin: 12px 0;
+        }
+
+        .input-box input,
+        .input-box select {
+
+            width: 100%;
+
+            padding: 15px 50px 15px 18px;
+
+            border: none;
+
+            outline: none;
+
+            border-radius: 15px;
+
+            background: #f2f2f2;
+
+            font-size: 15px;
+
+            color: #333;
+        }
+
+        .input-box input:focus,
+        .input-box select:focus {
+
+            border: 2px solid var(--paper-blue);
+        }
+
+        .input-box i {
+
+            position: absolute;
+
+            right: 18px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #666;
+        }
+
+        .toggle-password {
+            cursor: pointer;
+        }
+
+        .auth-btn {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            margin-top: 15px;
+
+            background: var(--paper-blue);
+
+            color: #fff;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .forgot-link {
+
+            margin-top: 18px;
+
+            border: none;
+
+            background: none;
+
+            color: #666;
+
+            font-weight: 500;
+        }
+
+        /* TOGGLE */
+
+        .toggle-container {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 50%;
+
+            width: 50%;
+
+            height: 100%;
+
+            overflow: hidden;
+
+            transition: all 0.6s ease-in-out;
+
+            border-radius: 150px 0 0 100px;
+
+            z-index: 1000;
+        }
+
+        .auth-container.active .toggle-container {
+
+            transform: translateX(-100%);
+
+            border-radius: 0 150px 100px 0;
+        }
+
+        .toggle {
+
+            position: relative;
+
+            left: -100%;
+
+            width: 200%;
+
+            height: 100%;
+
+            background: linear-gradient(
+                135deg,
+                var(--paper-blue),
+                #aebbe0
+            );
+
+            color: white;
+
+            transition: all 0.6s ease-in-out;
+        }
+
+        .auth-container.active .toggle {
+            transform: translateX(50%);
+        }
+
+        .toggle-panel {
+
+            position: absolute;
+
+            width: 50%;
+
+            height: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 40px;
+
+            text-align: center;
+        }
+
+        .toggle-panel h1 {
+
+            font-size: 3rem;
+
+            margin-bottom: 10px;
+        }
+
+        .toggle-panel p {
+
+            margin-bottom: 25px;
+
+            font-size: 1rem;
+        }
+
+        .toggle-left {
+            transform: translateX(-200%);
+        }
+
+        .auth-container.active .toggle-left {
+            transform: translateX(0);
+        }
+
+        .toggle-right {
+            right: 0;
+        }
+
+        .auth-container.active .toggle-right {
+            transform: translateX(200%);
+        }
+
+        .hidden-btn {
+
+            padding: 14px 45px;
+
+            border-radius: 15px;
+
+            border: 2px solid white;
+
+            background: transparent;
+
+            color: white;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .hidden-btn:hover {
+
+            background: white;
+
+            color: #7d5c52;
+        }
+
+        /* MODAL */
+
+        .custom-modal {
+
+            background: var(--paper-peach);
+
+            color: white;
+
+            border-radius: 30px;
+
+            border: 3px dashed rgba(255, 255, 255, 0.25);
+        }
+
+        .custom-input {
+
+            background: rgba(255, 255, 255, 0.18);
+
+            border: none;
+
+            color: white;
+
+            padding: 14px;
+
+            border-radius: 15px;
+        }
+
+        .custom-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .custom-input:focus {
+
+            background: rgba(255, 255, 255, 0.28);
+
+            color: white;
+
+            box-shadow: none;
+        }
+
+        .modal-btn {
+
+            width: 100%;
+
+            border: none;
+
+            padding: 15px;
+
+            border-radius: 20px;
+
+            background: var(--paper-white);
+
+            color: #7d5c52;
+
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+
+        footer {
+
+            background: #be8a7c;
+
+            text-align: center;
+
+            padding: 28px;
+
+            color: white;
+
+            font-size: 1.1rem;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:900px) {
+
+            .hero-section {
+                flex-direction: column;
+            }
+
+            .hero-left,
+            .hero-right {
+
+                width: 100%;
+
+                min-height: 50vh;
+            }
+
+            .center-line {
+
+                width: 100%;
+
+                height: 12px;
+
+                left: 0;
+
+                top: 50%;
+
+                transform: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+
+            .auth-container {
+                min-height: 850px;
+            }
+
+            .form-container {
+
+                width: 100%;
+
+                height: 50%;
+            }
+
+            .sign-up {
+                top: 50%;
+            }
+
+            .auth-container.active .sign-in {
+                transform: translateY(-100%);
+            }
+
+            .auth-container.active .sign-up {
+                transform: translateY(0);
+            }
+
+            .toggle-container {
+
+                width: 100%;
+
+                height: 50%;
+
+                left: 0;
+
+                top: 50%;
+
+                border-radius: 100px 100px 0 0;
+            }
+
+            .auth-container.active .toggle-container {
+
+                transform: translateY(-100%);
+
+                border-radius: 0 0 100px 100px;
+            }
+
+            .toggle {
+
+                left: 0;
+
+                top: -100%;
+
+                width: 100%;
+
+                height: 200%;
+            }
+
+            .auth-container.active .toggle {
+                transform: translateY(50%);
+            }
+
+            .toggle-panel {
+
+                width: 100%;
+
+                height: 50%;
+            }
+
+            .toggle-left {
+
+                top: 0;
+
+                transform: translateY(-200%);
+            }
+
+            .auth-container.active .toggle-left {
+                transform: translateY(0);
+            }
+
+            .toggle-right {
+                bottom: 0;
+            }
+
+            .auth-container.active .toggle-right {
+                transform: translateY(200%);
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark custom-nav">
+
+        <div class="container-fluid px-4">
+
+            <a class="navbar-brand logo" href="#">
+                Connexus
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navMenu">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+
+                <ul class="navbar-nav ms-auto align-items-center">
+
+                    <li class="nav-item" id="guestMenu">
+                        <button class="nav-btn" onclick="openSignup()">Sign Up</button>
+                        <button class="nav-btn" onclick="openLogin()">Login</button>
+                    </li>
+
+                    <li class="nav-item dropdown" id="userMenu" style="display:none;">
+                        <button class="nav-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-user-circle"></i>
+                            My Workplace
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <button class="dropdown-item" id="goDashboard">
+                                    Dashboard
+                                </button>
+                            </li>
+
+                            <li>
+                                <button class="dropdown-item" id="logoutBtn">
+                                    Logout
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="hero-section">
+
+        <div class="hero-left">
+
+            <div class="floating-circle c1"></div>
+
+            <div class="floating-circle c2"></div>
+
+            <div class="hero-content">
+
+                <h1>
+                    Build Your Brand Presence
+                </h1>
+
+                <p>
+                    Connect with influencers and grow digitally with premium campaigns.
+                </p>
+
+                <button class="hero-btn" onclick="openSignup()">
+                    Start Journey
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="hero-right">
+
+            <div class="floating-circle c3"></div>
+
+            <div class="floating-circle c4"></div>
+
+            <div class="hero-content">
+
+                <h1>
+                    Discover Creative Influencers
+                </h1>
+
+                <p>
+                    Explore creators and create magical collaborations.
+                </p>
+
+                <button class="hero-btn" onclick="openLogin()">
+                    Explore
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="center-line"></div>
+
+    </section>
+
+    <!-- SERVICES -->
+
+    <section class="services-section">
+
+        <h2 class="section-title">
+            Our Services
+        </h2>
+
+        <div class="container">
+
+            <div class="row g-4">
+
+                <div class="col-md-3">
+
+                    <div class="service-card">
+
+                        <div class="emoji">🎯</div>
+
+                        <h3>Influencer Discovery</h3>
+
+                        <p>
+                            Find creators matching your audience.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="service-card">
+
+                        <div class="emoji">🚀</div>
+
+                        <h3>Brand Visibility</h3>
+
+                        <p>
+                            Boost digital presence with campaigns.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="service-card">
+
+                        <div class="emoji">🤝</div>
+
+                        <h3>Authentic Relations</h3>
+
+                        <p>
+                            Build trusted creator partnerships.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="service-card">
+
+                        <div class="emoji">📈</div>
+
+                        <h3>Trend Analysis</h3>
+
+                        <p>
+                            Stay updated with creator trends.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- AUTH SECTION -->
+
+    <section class="auth-section" id="auth-section">
+
+        <div class="auth-container" id="container">
+
+            <!-- SIGN UP -->
+
+            <div class="form-container sign-up">
+
+                <form id="signupForm" autocomplete="off">
+
+                    <h1>Create Account</h1>
+
+                    <div class="input-box">
+
+                        <input type="email"
+                            placeholder="Email"
+                            id="txtsemail"
+                            required>
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                    </div>
+
+                    <div class="input-box">
+
+                        <input type="password"
+                            placeholder="Password"
+                            id="txtspwd"
+                            required>
+
+                        <i class="fa-solid fa-eye toggle-password"
+                            id="toggleSignupPwd"></i>
+
+                    </div>
+
+                    <div class="input-box">
+
+                        <select id="typesselect" required>
+
+                            <option value="">
+                                Choose User Type
+                            </option>
+
+                            <option value="brand">
+                                Brand
+                            </option>
+
+                            <option value="influencer">
+                                Influencer
+                            </option>
+
+                        </select>
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <button type="submit" class="auth-btn">
+                        Sign Up
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- SIGN IN -->
+
+            <div class="form-container sign-in">
+
+                <form id="loginForm" autocomplete="off">
+
+                    <h1>Sign In</h1>
+
+                    <div class="input-box">
+
+                        <input type="email"
+                            placeholder="Email"
+                            id="txtlemail"
+                            required>
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                    </div>
+
+                    <div class="input-box">
+
+                        <input type="password"
+                            placeholder="Password"
+                            id="txtlpwd"
+                            required>
+
+                        <i class="fa-solid fa-eye toggle-password"
+                            id="toggleLoginPwd"></i>
+
+                    </div>
+
+                    <button type="submit" class="auth-btn">
+                        Sign In
+                    </button>
+
+                    <button type="button"
+                        class="forgot-link"
+                        id="forgotBtn">
+
+                        Forgot Password?
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- TOGGLE -->
+
+            <div class="toggle-container">
+
+                <div class="toggle">
+
+                    <div class="toggle-panel toggle-left">
+
+                        <h1>Welcome Back!</h1>
+
+                        <p>
+                            Already have an account?
+                        </p>
+
+                        <button class="hidden-btn" id="login">
+                            Sign In
+                        </button>
+
+                    </div>
+
+                    <div class="toggle-panel toggle-right">
+
+                        <h1>Hello, Friend!</h1>
+
+                        <p>
+                            Don't have an account?
+                        </p>
+
+                        <button class="hidden-btn" id="register">
+                            Sign Up
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+        © 2026 Connexus — All Rights Reserved
+    </footer>
+
+    <!-- FORGOT PASSWORD MODAL -->
+
+    <div class="modal fade" id="settingsModal">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content custom-modal">
+
+                <div class="modal-header border-0">
+
+                    <h5 class="modal-title">
+                        Get Password
+                    </h5>
+
+                    <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <form id="forgotForm">
+
+                        <div class="mb-3">
+
+                            <label>Email</label>
+
+                            <input type="email"
+                                class="form-control custom-input"
+                                id="txtemail"
+                                placeholder="Enter your email">
+
+                        </div>
+
+                        <button type="submit" class="modal-btn">
+                            Submit
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+    const container = document.getElementById('container');
+
+    function isLoggedIn() {
+        return localStorage.getItem("token") && localStorage.getItem("utype");
+    }
+
+    function updateNavbar() {
+        if (isLoggedIn()) {
+            $("#guestMenu").hide();
+            $("#userMenu").show();
+            $("#auth-section").hide();
+        } else {
+            $("#guestMenu").show();
+            $("#userMenu").hide();
+            $("#auth-section").show();
+        }
+    }
+
+    function goDashboardByRole() {
+        const utype = localStorage.getItem("utype");
+
+        if (utype === "brand") {
+            window.location.href = "/client-dash.html";
+        } else if (utype === "influencer") {
+            window.location.href = "/infl-dash.html";
+        } else if (utype === "admin") {
+            window.location.href = "/admin-dash.html";
+        } else {
+            Swal.fire({
+                icon: "warning",
+                title: "Login Required",
+                text: "Please login again."
+            });
+        }
+    }
+
+    function openSignup() {
+        if (isLoggedIn()) {
+            goDashboardByRole();
+            return;
+        }
+
+        container.classList.add('active');
+
+        window.scrollTo({
+            top: document.getElementById('auth-section').offsetTop - 70,
+            behavior: 'smooth'
+        });
+    }
+
+    function openLogin() {
+        if (isLoggedIn()) {
+            goDashboardByRole();
+            return;
+        }
+
+        container.classList.remove('active');
+
+        window.scrollTo({
+            top: document.getElementById('auth-section').offsetTop - 70,
+            behavior: 'smooth'
+        });
+    }
+
+    $(document).ready(function () {
+
+        updateNavbar();
+
+        $('#register').click(function () {
+            container.classList.add('active');
+        });
+
+        $('#login').click(function () {
+            container.classList.remove('active');
+        });
+
+        $('#goDashboard').click(function () {
+            goDashboardByRole();
+        });
+
+        $('#logoutBtn').click(function () {
+            localStorage.removeItem("loggedmail");
+            localStorage.removeItem("utype");
+            localStorage.removeItem("token");
+
+            updateNavbar();
+
+            Swal.fire({
+                icon: "success",
+                title: "Logged Out",
+                text: "You have been logged out."
+            });
+        });
+
+        $('#toggleSignupPwd').click(function () {
+            let input = $('#txtspwd');
+
+            if (input.attr('type') === 'password') {
+                input.attr('type', 'text');
+                $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+            } else {
+                input.attr('type', 'password');
+                $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+            }
+        });
+
+        $('#toggleLoginPwd').click(function () {
+            let input = $('#txtlpwd');
+
+            if (input.attr('type') === 'password') {
+                input.attr('type', 'text');
+                $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+            } else {
+                input.attr('type', 'password');
+                $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+            }
+        });
+
+        $('#signupForm').submit(function (e) {
+            e.preventDefault();
+
+            let email = $('#txtsemail').val().trim();
+            let password = $('#txtspwd').val().trim();
+            let type = $('#typesselect').val();
+
+            if (email === '' || password === '' || type === '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Missing Fields',
+                    text: 'Please fill all fields properly.'
+                });
+                return;
+            }
+
+            const strongPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
+
+            if (!strongPassword.test(password)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Weak Password',
+                    text: 'Password must contain letters and numbers.'
+                });
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/user-signup',
+                data: {
+                    txtsemail: email,
+                    txtspwd: password,
+                    typesselect: type
+                }
+            })
+            .done(function (resp) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Account Created',
+                    text: resp
+                });
+
+                $('#signupForm')[0].reset();
+                container.classList.remove('active');
+            })
+            .fail(function (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Signup Failed',
+                    text: err.responseText || 'Something went wrong'
+                });
+            });
+        });
+
+        $('#loginForm').submit(function (e) {
+            e.preventDefault();
+
+            let email = $('#txtlemail').val().trim();
+            let password = $('#txtlpwd').val().trim();
+
+            if (email === '' || password === '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Missing Fields',
+                    text: 'Please enter email and password.'
+                });
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/user-login',
+                data: {
+                    txtlemail: email,
+                    txtlpwd: password
+                }
+            })
+            .done(function (resp) {
+                localStorage.setItem('loggedmail', resp.email);
+                localStorage.setItem('utype', resp.utype);
+                localStorage.setItem('token', resp.token);
+
+                updateNavbar();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful',
+                    text: 'Welcome ' + resp.utype
+                });
+            })
+            .fail(function (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: err.responseText || 'Something went wrong'
+                });
+            });
+        });
+
+        $('#forgotBtn').click(function () {
+            const modal = new bootstrap.Modal(
+                document.getElementById('settingsModal')
+            );
+
+            modal.show();
+        });
+
+        $('#forgotForm').submit(function (e) {
+            e.preventDefault();
+
+            let email = $('#txtemail').val().trim();
+
+            if (email === '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Email Required',
+                    text: 'Please enter your email.'
+                });
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/forgot-pwd',
+                data: {
+                    txtemail: email
+                }
+            })
+            .done(function (resp) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Password Sent',
+                    text: resp
+                });
+
+                const modal = bootstrap.Modal.getInstance(
+                    document.getElementById('settingsModal')
+                );
+
+                modal.hide();
+                $('#forgotForm')[0].reset();
+            })
+            .fail(function (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: err.responseText || 'Something went wrong'
+                });
+            });
+        });
+
+    });
+</script>
+
+</body>
+
+</html>
